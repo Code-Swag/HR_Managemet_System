@@ -15,3 +15,5 @@ Pass data to repository from service layer through this
 
 ## Repository Package
 Pass data to the databse
+
+Each layer handle employee, salary and work related data seperately
