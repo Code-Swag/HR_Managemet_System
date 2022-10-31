@@ -34,24 +34,45 @@ public class EmployeeService {
         return modelMapper.map(employees, new TypeToken<List<EmployeeDTO>>(){}.getType());
     }
 
+    //Select * from EmployeeEntity where id =
+    public EmployeeDTO getEmployeeById(String id){
+        EmployeeEntity employee=employeeRepo.getUserByUserId(id);
+        return modelMapper.map(employee,EmployeeDTO.class);
+    }
+
     //update an employee
-    public EmployeeDTO updateEmployee(EmployeeDTO employeeDTO){
+    public EmployeeDTO updateAllEmployee(EmployeeDTO employeeDTO){
         employeeRepo.save(modelMapper.map(employeeDTO, EmployeeEntity.class));
         return employeeDTO;
     }
 
+    //update an employee by id
+    public EmployeeDTO updateEmployee(String id,EmployeeDTO employeeDTO){
+
+        EmployeeEntity employeeEntity = employeeRepo.getById(Integer.valueOf(id));
+
+        employeeEntity.setFirstName(employeeDTO.getFirstName());
+        employeeEntity.setFirstName(employeeDTO.getFirstName());
+        employeeEntity.setLastName(employeeDTO.getLastName());
+        employeeEntity.setAddress(employeeDTO.getAddress());
+        employeeEntity.setDepartment(employeeDTO.getDepartment());
+        employeeEntity.setDesignation(employeeDTO.getDesignation());
+        employeeEntity.setGender(employeeDTO.getGender());
+        employeeEntity.setContactNumber(employeeDTO.getContactNumber());
+
+        employeeRepo.save(employeeEntity);
+
+        return employeeDTO;
+    }
+
     //delete an employee
-    public boolean deleteUser (EmployeeDTO employeeDTO){
-        employeeRepo.delete(modelMapper.map(employeeDTO, EmployeeEntity.class));
-        return true;
+    public boolean deleteUser (String id){
+
+            EmployeeEntity employeeEntity = employeeRepo.getById(Integer.valueOf(id));
+            employeeRepo.delete(employeeEntity);
+
+            return true;
+
     }
-
-    //Select * from EmployeeEntity where id = 2
-    public EmployeeDTO getEmployeeById(String empID){
-        EmployeeEntity employee=employeeRepo.getUserByUserId(empID);
-        return modelMapper.map(employee,EmployeeDTO.class);
-    }
-
-
 
 }

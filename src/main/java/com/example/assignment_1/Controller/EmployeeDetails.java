@@ -24,9 +24,9 @@ public class EmployeeDetails {
 
     //Select a user by ID
     //Select * from EmployeeEntity where id = 2
-    @GetMapping("/viewEmployeeById/{empID}")
-    public EmployeeDTO viewEmployeeByID(@PathVariable String empID){
-        return employeeService.getEmployeeById(empID);
+    @GetMapping("/viewEmployeeById/{id}")
+    public EmployeeDTO viewEmployeeByID(@PathVariable String id){
+        return employeeService.getEmployeeById(id);
     }
 
     @PostMapping("/saveDetails")
@@ -34,14 +34,24 @@ public class EmployeeDetails {
         return employeeService.saveEmployee(employeeDTO) ;
     }
 
-    @PutMapping("/updateDetails")
-    public EmployeeDTO updateDetails(@RequestBody EmployeeDTO employeeDTO){
-        return employeeService.updateEmployee(employeeDTO) ;
+//    @PutMapping("/updateDetails")
+//    public EmployeeDTO updateAllDetails(@RequestBody EmployeeDTO employeeDTO){
+//        return employeeService.updateEmployee(employeeDTO) ;
+//    }
+
+    @PutMapping("/updateDetailsById/{id}")
+    public EmployeeDTO updateDetailsById(@PathVariable String id,@RequestBody EmployeeDTO employeeDTO){
+        return employeeService.updateEmployee(id,employeeDTO) ;
     }
 
-    @DeleteMapping("/deleteDetails") //Delete details by giving all user data
-    public boolean deleteDetails(@RequestBody EmployeeDTO employeeDTO){
-        return employeeService.deleteUser(employeeDTO);
+//    @DeleteMapping("/deleteDetails") //Delete details by giving all user data
+//    public boolean deleteDetails(@RequestBody EmployeeDTO employeeDTO){
+//        return employeeService.deleteUser(employeeDTO);
+//    }
+
+    @DeleteMapping("/deleteDetailsById/{id}") //Delete details by giving id
+    public boolean deleteDetailsById(@PathVariable String id){
+        return employeeService.deleteUser(id);
     }
 
 }
